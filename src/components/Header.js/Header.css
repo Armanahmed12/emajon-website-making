@@ -1,0 +1,24 @@
+.header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color:#cf9a9a5b;
+  padding: 0.5rem 0;
+}
+.nav-items {
+      
+      list-style: none;
+      display: flex;
+      gap: 0 1rem;
+}
+
+.nav-items li a {
+      font-weight: bold;
+      text-decoration: none;
+      color:rgb(1, 23, 27);
+}
+
+.nav-items li a:hover {
+      
+      color: rgba(183, 41, 74, 0.386);
+}
