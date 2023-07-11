@@ -1,9 +1,9 @@
 .header{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color:#cf9a9a5b;
-  padding: 0.5rem 0;
+  padding: 0.5rem 2rem;
 }
 .nav-items {
       
