@@ -1,0 +1,11 @@
+.cart {
+ 
+      margin-top:1.4rem;
+      background-color: rgba(67, 50, 50, 0.74);
+      padding: 2rem;
+      font-weight: bold;
+      color:white;
+      border-radius: 7px;
+      position: sticky;
+      top:1.3rem;
+}
