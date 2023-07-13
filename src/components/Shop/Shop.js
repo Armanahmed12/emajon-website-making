@@ -2,27 +2,67 @@ import React, { useEffect, useState } from 'react';
 import './Shop.css';
 import Product from '../Product/Product';
 import Cart from '../cart/Cart';
-//  Getting the data of Shop
+import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+
+//  Getting the data of Shop by fetching
 const Shop = () => {
     const [products, setProducts] = useState([]);
     useEffect(()=>{
         
-    fetch('products.json')
+     fetch('products.json')
     .then(res => res.json())
     .then(data => setProducts(data));
 
     },[]);
 
-    // To be added goods to cart
-   const [carts, setCarts] = useState([]);
+//  Getting an object of Id from localStorage through which we can be able to find out object which is related with this Id.
+useEffect(()=>{
 
+     const storedCartsId = getShoppingCart();
+        const savedCart = [];
+        for(const id in storedCartsId){
+
+         let addedProduct = products.find(product => product.id === id);
+       
+          if(addedProduct){
+
+            let quantity = storedCartsId[id];
+            addedProduct.quantity = quantity;
+            savedCart.push(addedProduct);
+
+          }
+       
+        };
+
+     setCarts(savedCart);
+      
+         
+},[products]);
+    // Goods(product) are being added to the cart(LocalStorage) after being collected.
+    const [carts, setCarts] = useState([]);
+    let newCarts = [];
     const handleAddToCart = (product) => {
-           
-        const newCart = [...carts,product];
-        setCarts(newCart);
+         
+        let existing = products.find(pd =>  pd.id === product.id);
+        if(!existing){
+
+             product.quantity = 1;
+             newCarts = [...carts,product];
+            
+        }
+        else{
+            existing.quantity = existing.quantity + 1;
+            const remaining = carts.filter(pd => pd.id !== product.id);
+            newCarts = [...remaining,existing];
+
+        }
+        
+         setCarts(newCarts);
+         addToDb(product.id);
 
     };
-    console.log(carts);
+
+// Cart is being added to the LocalStorage
     return (
         <div className='shop-container'>
             <div className="products-container">
